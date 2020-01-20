@@ -1,0 +1,53 @@
+#container {
+  max-width: 960px;
+  font-size: 30px;
+}
+
+#chooseCharBox {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.char-div {
+  width: 100%;
+}
+.char-img {
+  width: 150px;
+}
+
+.char1 {
+  margin: 0px;
+  width: 150px;
+  height: 100%;
+  background-color: blue;
+  border: 5px green;
+  float: left;
+}
+
+.char2 {
+  margin: 0px;
+  width: 150px;
+  height: 100%;
+  background-color: blue;
+  border: 5px green;
+  float: left;
+}
+
+.char3 {
+  margin: 0px;
+  width: 150px;
+  height: 100%;
+  background-color: blue;
+  border: 5px green;
+  float: left;
+}
+
+.char4 {
+  margin: 0px;
+  width: 150px;
+  height: 100%;
+  background-color: blue;
+  border: 5px green;
+  float: left;
+}
