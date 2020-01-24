@@ -2,25 +2,25 @@ var characters = [
     {
         name: "Han Solo",
         img: "./assets/img/hanssolo.jpg",
-        attack: 50,
-        health: 100
+        attack: 15,
+        health: 300
     },
     {
         name: "Luke Skywalker",
         img: "./assets/img/lukeskywalker.jpg",
-        attack: 150,
-        health: 100
+        attack: 25,
+        health: 250
     },
     {
         name: "Master Yoda",
         img: "./assets/img/masteryoda.jpg",
-        attack: 250,
-        health: 100
+        attack: 40,
+        health: 150
     },
     {
         name: "Obi Wan Kenobi",
         img: "./assets/img/obi-wankenobi.jpg",
-        attack: 175,
-        health: 100
+        attack: 20,
+        health: 200
     }
 ]

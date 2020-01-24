@@ -6,6 +6,7 @@ $(document).ready(function() {
     console.log(characters[i]);
     var div = $("<div>")
       .addClass(".char-div")
+      .addClass(".char" + (i+1))
       .attr("data-char", characters[i].name)
       .on("click", click);
     var img = $("<img>")
@@ -16,6 +17,8 @@ $(document).ready(function() {
     charBox.append(div);
   }
 
+
+  var test = true;
   var charchoose = true;
   var countdefeated = 0;
 
@@ -31,9 +34,11 @@ function click() {
     if (characters[i].name === selected) {
       var character = characters[i];
     }
+
   }
   console.log(character);
 }
+
 
 $(".char1").on("click", function() {
   if (char1Count === true) {
@@ -155,44 +160,6 @@ $(".char3").on("click", function() {
   }
 });
 
-$(".char3").on("click", function() {
-  if (char3Count === true) {
-    $(this).addClass("main");
-    obicount++;
-
-    char3Count = false;
-
-    $(".char1")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char1").css({ "margin-left": "40px" });
-
-    $(".char2")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char2").css({ "margin-left": "40px" });
-
-    $(".char4")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char4").css({ "margin-left": "40px" });
-
-    $("starImage").css({
-      width: "100px",
-      height: "100px",
-      "margin-left": "auto",
-      "maring-right": "auto",
-      display: "block"
-    });
-  } else if (char3Count === false && obicount === 0) {
-    $("char3")
-      .appenedTo(".defender")
-      .addClass("def")
-      .css({ "background-color": "green" });
-    $("char3 p").css({ "margin-left": "40px" });
-  }
-});
-
 $(".char4").on("click", function() {
   if (char4Count === true) {
     $(this).addClass("main");
@@ -230,6 +197,7 @@ $(".char4").on("click", function() {
     $("char4 p").css({ "margin-left": "40px" });
   }
 });
+
 
 $("attack").on("click", function() {
   var charName = $(".def").attr("characterName");
@@ -277,6 +245,8 @@ $("attack").on("click", function() {
     $(".defender")
       .html("<p>" + "You have been defeated. You need more training" + "</p>")
       .css({ "font-size": "20px" });
+    $('main').remove();
+    this.diabled = true;  
 
     $(".attack").off("click");
   } else if (healthDefAfter <= 0) {
@@ -298,7 +268,7 @@ $("attack").on("click", function() {
         .html("<p>" + "CONGRATULATIONS! YOU ARE AN ACE OF JEDI!" + "</p>")
         .css({ "font-size": "50px" });
       console.log("count after****" + countDefeated);
-
+      this.disabled = true;
       $(".attack").off("click");
     }
   }
