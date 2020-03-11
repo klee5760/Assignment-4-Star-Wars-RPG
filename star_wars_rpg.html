@@ -1,57 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
+
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>Homework Assignment 4</title>
-    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/styles.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet" type="text/css">
+
+    <!--Game Logic -->
+    <script type="text/javascript" src="assets/javascript/starwars.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- jQuery -->
+    <script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
 
   <body>
-    <p>Star Wars RPG! Battle of heroes!</p>
 
-    <div id="container">
-      <div type = "button" class="char1" charactername="Luke Skywalker"></div>
-      
-      
-      
-      <div type = "button" class="char2" charactername="Hans Solo"></div>
-      
-      
+    <div class = "main-section-title">Star Wars RPG! Battle of heroes!</div>
+    <div id = "main-game-section">
 
-      <div type = "button" class="char3" charactername="Obi-Wan Kenobi"></div>
-      
+      <!--Where your hero intially available to select-->
+      <div id="character-section">
+        <div class = "section-title">Choose Your Hero!</div>
+      </div>  
+
+      <!--The section where you selected your own hero-->
+      <div id ="selected-section">
+        <div class = "section-title">Your Hero!</div>
+
+        <!--Where your selected hero should be-->
+        <div id = "selected-hero"></div>
+      </div>
+
+      <!--Section for the battle oppent partner-->
+      <div id="opponent-section">
+        <div class="opponent">Choose your battle partner</div>
+      </div>
     
+      <div class = "training-battle-section">Battle Section</div>
+      <div class="battle-section">
+        <button id = "attackBtn">Attack</button>
+    </div>    
 
-      <div type = "button" class="char4" charactername="Master Yoda"></div>
-      
-   
-      <p>Choose your hero!</p>
-      <div id="chooseCharBox"></div>
+    <div class="defenderBox">
+      <div class = "character">
+        <div class = "section-title">Defender</div>
 
-      <div class="opponentBox">
-        <div class="opponent">
-          <div>
-            <p>Choose your battle partner</p>
-          </div>
-        </div>  
+        <!--The area where the other characters as your training partner-->
 
-          <div class="fightBox">
-            <div class="fight"></div>
-            <p>Fight Section</p>
-          </div>
-
-          <button class = "attackBtn">Attack</button>
-
-          <div class="defenderBox">
-            <div class="defender"></div>
-          </div>
-        
+        <div id = "defender"></div>
       </div>
     </div>
-    
-    <script src="./assets/javascript/characters.js"></script>
-    <script type="text/javascript" src="assets/javascript/starwars.js"></script>
-  </body>
+  <!-- Area for game messages-->  
+  <div id = "game-message"></div>
+ </body>
+
 </html>

@@ -1,275 +1,214 @@
-console.log(characters);
-var charBox = $("#chooseCharBox");
 
 $(document).ready(function() {
-  for (var i = 0; i < characters.length; i++) {
-    console.log(characters[i]);
-    var div = $("<div>")
-      .addClass(".char-div")
-      .addClass(".char" + (i+1))
-      .attr("data-char", characters[i].name)
-      .on("click", click);
-    var img = $("<img>")
-      .addClass("char-img")
-      .attr("src", characters[i].img);
-    var name = $("<p>").text(characters[i].name);
-    div.append(img, name);
-    charBox.append(div);
+ 
+  var characters = {
+    
+    "Han Solo":{
+    name: "Han Solo", 
+    imgUrl: "./assets/img/hanssolo.jpg",
+    attack: 15,
+    health: 300,
+    enemyCounter: 20
+},
+
+    "Luke Skywalker":{
+    name: "Luke Skywalker",  
+    imgUrl: "./assets/img/lukeskywalker.jpg",
+    attack: 25,
+    health: 250,
+    enemyCounter: 15
+},
+
+    "Master Yoda":{
+    name: "Master Yoda",  
+    imgUrl: "./assets/img/masteryoda.jpg",
+    attack: 40,
+    health: 150,
+    enemyCounter: 30
+},
+
+    "Obi Wan Kenobi":{
+    name: "Obi Wan Kenobi", 
+    imgUrl: "./assets/img/obi-wankenobi.jpg",
+    attack: 20,
+    health: 200,
+    enemyCounter: 25
+}
+};
+
+var attacker;
+
+var combatants = [];
+
+var defender;
+
+var turnCounter = 1;
+
+var defeatCount = 0;
+
+
+var renderCharacter = function(character, renderArea) {
+
+  var charDiv = $("div class = 'character' data name='" + character.name + "'>");
+
+  var charName = $("<div class = 'character-name'>").text(character.name);
+
+  var charImage = $("<img alt = 'image' class = 'character-image'>").attr("src",character.imgUrl);
+
+  var charHealth = $("<div class = 'character-health'>").text(character.health);
+
+  charDiv.append(charName).append(charImage).append(charHealth);
+
+  $(renderArea).append(charDiv);
+
+};
+
+var initializeGame = function() {
+
+  for (var key in characters) {
+
+    renderCharacter(character[key], "#characters-section");
   }
+};
 
+initializeGame();
 
-  var test = true;
-  var charchoose = true;
-  var countdefeated = 0;
+var updateCharacter = function(charObj, areaRender) {
 
-  var lukecount = 0;
-  var hanscount = 0;
-  var obicount = 0;
-  var yodacount = 0;
-});
+  $(areaRender).empty();
+  renderCharacter(charObj, areaRender);
+};
 
-function click() {
-  var selected = $(this).attr("data-char");
-  for (var i = 0; i < characters.length; i++) {
-    if (characters[i].name === selected) {
-      var character = characters[i];
+var renderEnemies = function(enemyArr) {
+  for (var i =0; i <enemyArr[i].length; i++) {
+    renderCharacter(enemyArr[i], "#available-to-attack-section");
+
+  }
+};
+
+var renderMessage = function(message) {
+
+  var gameMessageSet = $("#game-message");
+  var newMessage = $("<div>").text(message);
+  gameMessageSet.append(newMessage);
+};
+
+var restartGame = function(resultMessage) {
+
+  var restart = $("<button>Restart</buttons>").click(function() {
+    location.reload();
+  });
+
+  var gameState = $("<div>").text(resultMessage);
+
+  $("body").append(gameState);
+  $("body").append(restart);
+
+  var clearMessage = function() {
+    var gameMessage = $("#game-message");
+
+    gameMessage.text("");
+  }
+};
+
+$("#characters-section").on("click", "character", function(){
+
+  var name = $(this).attr("data-name");
+
+  if (!attacker) {
+
+    attacker = characters[name];
+    for (var key in characters) {
+
+      if (key !==name) {
+        combatants.push(characters[key]);
+      }
     }
 
+    $("#characters-section").hide();
+
+    updateCharacter(attacker, "#selected-character");
+    renderEnemies(combatants);
   }
-  console.log(character);
+});
+
+$("#available-to-attack-section").on("click","character",function(){
+
+  var name = $(this).attr("data-name");
+
+  if($("#defender").children().length===0) {
+    defender = character[name];
+    updateCharacter(defender,"#defender");
+
+    $(this).remove();
+    clearMessage();
+  }
+});
+
+$("attackbtn").on("click",function(){
+
+  if($("#defender").children().length !==0) {
+
+    var attackMessage = "You attacked" + defender.name + "for" +attacker.attack *turnCounter + "damage.";
+    var counterAttackMessage = defender.name + " attacked you back for " + defender.enemyAttackBack + " damage.";
+    clearMessage();
+
+    defender.health -= attacker.attack * turnCounter;
+
+    
+    if (defender.health > 0) {
+      
+      updateCharacter(defender, "#defender");
+
+     
+      renderMessage(attackMessage);
+      renderMessage(counterAttackMessage);
+
+      
+      attacker.health -= defender.enemyAttackBack;
+
+      updateCharacter(attacker, "#selected-character");
+  }
+
+  if (attacker.health <= 0) {
+
+    clearMessage();
+
+    restartGame("You are defeated! You need more training!")
+
+    $("#attack-button").off("click");
+  }
+
+  else {
+
+    $("#defender").empty();
+
+    var gameStateMessage = "You defeated" + defender.name + ", choose your training next opponent";
+
+    renderMessage(gameStateMessage);
+
+    defeatCount++
+
+    if (defeatCount >= combatants.length) {
+
+      clearMessage();
+
+      $("#attackbtn").off("click");
+
+      restartGame("Congratulations! You are the ture Jedi hero!");
+
+    }
+
 }
 
+     turnCounter++;
+  }  
 
-$(".char1").on("click", function() {
-  if (char1Count === true) {
-    $(this).addClass("main");
-    lukecount++;
+    else{
 
-    char1Count = false;
-
-    $(".char2")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char2").css({ "margin-left": "40px" });
-
-    $(".char3")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char3").css({ "margin-left": "40px" });
-
-    $(".char4")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char4").css({ "margin-left": "40px" });
-
-    $("starImage").css({
-      width: "100px",
-      height: "100px",
-      "margin-left": "auto",
-      "maring-right": "auto",
-      display: "block"
-    });
-  } else if (char1Count === false && lukecount === 0) {
-    $("char1")
-      .appenedTo(".defender")
-      .addClass("def")
-      .css({ "background-color": "green" });
-    $("char1 p").css({ "margin-left": "40px" });
-  }
+  clearMessage();
+  renderMessage("No training opponents here!");
+}
 });
 
-$(".char2").on("click", function() {
-  if (char2Count === true) {
-    $(this).addClass("main");
-    hanscount++;
-
-    char2Count = false;
-
-    $(".char1")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char1").css({ "margin-left": "40px" });
-
-    $(".char3")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char3").css({ "margin-left": "40px" });
-
-    $(".char4")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char4").css({ "margin-left": "40px" });
-
-    $("starImage").css({
-      width: "100px",
-      height: "100px",
-      "margin-left": "auto",
-      "maring-right": "auto",
-      display: "block"
-    });
-  } else if (char2Count === false && hanscount === 0) {
-    $("char1")
-      .appenedTo(".defender")
-      .addClass("def")
-      .css({ "background-color": "green" });
-    $("char1 p").css({ "margin-left": "40px" });
-  }
-
-  $("char2")
-    .appenedTo(".defender")
-    .addClass("def")
-    .css({ "background-color": "green" });
-  $("char2 p").css({ "margin-left": "40px" });
-});
-
-$(".char3").on("click", function() {
-  if (char3Count === true) {
-    $(this).addClass("main");
-    obicount++;
-
-    char3Count = false;
-
-    $(".char1")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char1").css({ "margin-left": "40px" });
-
-    $(".char2")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char2").css({ "margin-left": "40px" });
-
-    $(".char4")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char4").css({ "margin-left": "40px" });
-
-    $("starImage").css({
-      width: "100px",
-      height: "100px",
-      "margin-left": "auto",
-      "maring-right": "auto",
-      display: "block"
-    });
-  } else if (char3Count === false && obicount === 0) {
-    $("char3")
-      .appenedTo(".defender")
-      .addClass("def")
-      .css({ "background-color": "green" });
-    $("char3 p").css({ "margin-left": "40px" });
-  }
-});
-
-$(".char4").on("click", function() {
-  if (char4Count === true) {
-    $(this).addClass("main");
-    yodacount++;
-
-    char4Count = false;
-
-    $(".char1")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char1").css({ "margin-left": "40px" });
-
-    $(".char2")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char2").css({ "margin-left": "40px" });
-
-    $(".char3")
-      .appenedTo(".opponentBox")
-      .css({ height: "200px", width: "200px", "background-color": "blue" });
-    $("char3").css({ "margin-left": "40px" });
-
-    $("starImage").css({
-      width: "100px",
-      height: "100px",
-      "margin-left": "auto",
-      "maring-right": "auto",
-      display: "block"
-    });
-  } else if (char4Count === false && yodacount === 0) {
-    $("char4")
-      .appenedTo(".defender")
-      .addClass("def")
-      .css({ "background-color": "green" });
-    $("char4 p").css({ "margin-left": "40px" });
-  }
-});
-
-
-$("attack").on("click", function() {
-  var charName = $(".def").attr("characterName");
-
-  var healthMain = $(".main").attr("health");
-
-  var attackMain = $(".main").attr("attack");
-
-  var healthDefender = $(".def").attr("health");
-
-  var counterAttack = $(".def").attr("counterAttack");
-
-  var healthMainAfter = healthMain - counterAttack;
-
-  var healthDefAfter = healthMain - attackMain;
-
-  var healthMain1 = $(".main").attr(".health", healthMainAfter);
-
-  var healthDef1 = $(".def").attr(".health", healthDefAfter);
-
-  $(".main p").html($(".main").attr("health"));
-
-  $(".def p").html($(".def").attr("health"));
-
-  $(".defender")
-    .html(
-      "<p>" +
-        "You attacked" +
-        charName +
-        "for" +
-        attackMain +
-        "damage" +
-        charName +
-        "attacked you back for" +
-        counterAttack +
-        "</p>"
-    )
-    .css({ "font size": "20px", "text-align": "center" });
-
-  attackMain = attackMain * 2;
-
-  var attackMain1 = $(".main").attr("attack", attackMain);
-
-  if (healthMainAfter <= 0) {
-    $(".defender")
-      .html("<p>" + "You have been defeated. You need more training" + "</p>")
-      .css({ "font-size": "20px" });
-    $('main').remove();
-    this.diabled = true;  
-
-    $(".attack").off("click");
-  } else if (healthDefAfter <= 0) {
-    $(".def").remove();
-    $(".defender")
-      .html(
-        "<p>" +
-          "You have defeated " +
-          charName +
-          "choose another opponent to battle" +
-          "</P>"
-      )
-      .css({ "font-size": "20px" });
-
-    countdefeated++;
-
-    if (countdefeated === 3) {
-      $(".defender")
-        .html("<p>" + "CONGRATULATIONS! YOU ARE AN ACE OF JEDI!" + "</p>")
-        .css({ "font-size": "50px" });
-      console.log("count after****" + countDefeated);
-      this.disabled = true;
-      $(".attack").off("click");
-    }
-  }
 });

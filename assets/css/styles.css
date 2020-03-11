@@ -1,53 +1,114 @@
-#container {
-  max-width: 960px;
-  font-size: 30px;
+body {
+  font-family: "Share Tech Mono", Arial, Helvetica, sans-serif;
+  background-image: url("../img/starwars.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
 }
 
-#chooseCharBox {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.char-div {
-  width: 100%;
-}
-.char-img {
+img {
   width: 150px;
+  height: 100px;
+  border-radius: 10px;
 }
 
-.char1 {
-  margin: 0px;
-  width: 150px;
-  height: 100%;
-  background-color: blue;
-  border: 5px green;
-  float: left;
+.section-title {
+  font-size: 200%;
 }
 
-.char2 {
-  margin: 0px;
-  width: 150px;
-  height: 100%;
-  background-color: blue;
-  border: 5px green;
-  float: left;
+.main-section-title {
+  font-size: 300%;
+  text-align: center;
 }
 
-.char3 {
-  margin: 0px;
-  width: 150px;
-  height: 100%;
-  background-color: blue;
-  border: 5px green;
-  float: left;
+.character {
+  display: inline-block;
+  cursor: pointer;
+  background-color: white;
+  border-color: blue;
+  border-style: solid;
+  border-width: 5px;
 }
 
-.char4 {
-  margin: 0px;
-  width: 150px;
-  height: 100%;
-  background-color: blue;
-  border: 5px green;
-  float: left;
+.character-image {
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.character-name {
+  text-align: center;
+}
+
+.character-health {
+  text-align: center;
+}
+
+#available-to-attack-section .character {
+  display: inline-block;
+  cursor: pointer;
+  background-color: green;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.opponent {
+  display: inline-block;
+  cursor: pointer;
+  background-color: green;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#action .character {
+  color: white;
+  background-color: black;
+}
+
+.target-opponent {
+  color: white;
+  background-color: black;
+}
+
+#selected-character {
+  width: 190px;
+  height: 160px;
+}
+
+#attacker {
+  width: 190px;
+  height: 160px;
+}
+
+#defender {
+  width: 190px;
+  height: 160px;
+}
+
+#defender-name {
+  text-align: center;
+}
+
+#defender-health {
+  text-align: center;
+}
+
+#choose-opponent-button {
+  visibility: hidden;
+}
+
+
+
+#restart-button {
+  visibility: hidden;
+}
+
+#turn-counter {
+  font-size: 150%;
+}
+
+#turn-counter {
+  font-size: 150%;
 }
