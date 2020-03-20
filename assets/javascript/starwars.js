@@ -67,7 +67,7 @@ var initializeGame = function() {
 
   for (var key in characters) {
 
-    renderCharacter(character[key], "#characters-section");
+    renderCharacter(characters[key], "#character-section");
   }
 };
 
@@ -150,7 +150,7 @@ $("attackbtn").on("click",function(){
   if($("#defender").children().length !==0) {
 
     var attackMessage = "You attacked" + defender.name + "for" +attacker.attack *turnCounter + "damage.";
-    var counterAttackMessage = defender.name + " attacked you back for " + defender.enemyAttackBack + " damage.";
+    var counterAttackMessage = defender.name + " attacked you back for " + defender.enemyCounter + " damage.";
     clearMessage();
 
     defender.health -= attacker.attack * turnCounter;
@@ -165,7 +165,7 @@ $("attackbtn").on("click",function(){
       renderMessage(counterAttackMessage);
 
       
-      attacker.health -= defender.enemyAttackBack;
+      attacker.health -= defender.enemyCounter;
 
       updateCharacter(attacker, "#selected-character");
   }
