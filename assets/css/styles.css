@@ -28,6 +28,15 @@ img {
   border-style: solid;
   border-width: 5px;
 }
+#defender .character {
+  display: inline-block;
+  cursor: pointer;
+  background-color: #1c1919;
+  border-color: #1d1d1e;
+  border-style: solid;
+  border-width: 5px;
+  color: #fff;
+}
 
 .character-image {
   padding-right: 20px;
@@ -47,10 +56,11 @@ img {
 #available-to-attack-section .character {
   display: inline-block;
   cursor: pointer;
-  background-color: green;
+  background-color: #cf2526;
   border-color: black;
   border-style: solid;
   border-width: 1px;
+  color: #fff;
 }
 
 .opponent {
@@ -98,8 +108,6 @@ img {
 #choose-opponent-button {
   visibility: hidden;
 }
-
-
 
 #restart-button {
   visibility: hidden;
